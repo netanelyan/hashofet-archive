@@ -1,4 +1,4 @@
-build.log
+node_modules/
 __pycache__/
 *.zip
 *orders*

@@ -1,0 +1,15 @@
+/* Archive mode: the store is closed, nothing can be ordered. */
+.archive-bar {
+  background: #121212; color: #fff; text-align: center; font-weight: 700;
+  font-size: 1.4rem; line-height: 1.4; padding: 0.9rem 1.6rem; letter-spacing: 0.02rem;
+}
+.header__icon--cart, #cart-icon-bubble, cart-notification, cart-drawer,
+.product-form__quantity, .product-form__input--quantity, .quantity__rules-cart,
+.shopify-payment-button { display: none !important; }
+.product-form__submit[disabled] { opacity: 0.6; cursor: not-allowed; }
+.archive-toast {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 9999;
+  background: #121212; color: #fff; padding: 1.2rem 2rem; border-radius: 1.2rem;
+  font-size: 1.5rem; font-weight: 700; box-shadow: 0 1rem 3rem rgba(0,0,0,.25);
+  max-width: calc(100vw - 3.2rem); text-align: center;
+}

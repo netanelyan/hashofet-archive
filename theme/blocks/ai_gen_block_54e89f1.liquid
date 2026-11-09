@@ -1,0 +1,212 @@
+{% doc %}
+  @prompt
+    Create CSS code to reduce the large bottom margin or padding gap below an image banner section, I NEED IT TO BE SMALLER, WITH ROUNDED EDGES, I NEED THE IMAGE TO NOT BE CROPPED ON DESKTOP MODE
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-compact-banner-{{ ai_gen_id }} {
+    margin: {{ block.settings.top_spacing }}px auto {{ block.settings.bottom_spacing }}px;
+    padding: 0;
+    max-width: {{ block.settings.banner_width }}%;
+    width: 80%;}
+
+  .ai-compact-banner-{{ ai_gen_id }} .ai-banner-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 80%;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-compact-banner-{{ ai_gen_id }} img {
+    display: block;
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    margin: 0;
+    padding: 0;
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-compact-banner-{{ ai_gen_id }} .ai-banner-placeholder-{{ ai_gen_id }} {
+    width: 80%;
+    height: {{ block.settings.banner_height }}px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-compact-banner-{{ ai_gen_id }} .ai-banner-placeholder-{{ ai_gen_id }} svg {
+    width: 80%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 150px;
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-compact-banner-{{ ai_gen_id }} {
+      margin: {{ block.settings.mobile_top_spacing }}px auto {{ block.settings.mobile_bottom_spacing }}px;
+      max-width: {{ block.settings.mobile_banner_width }}%;}
+
+    .ai-compact-banner-{{ ai_gen_id }} img {
+      height: {{ block.settings.mobile_banner_height }}px;object-fit: cover;
+      border-radius: {{ block.settings.mobile_border_radius }}px;
+    }
+
+    .ai-compact-banner-{{ ai_gen_id }} .ai-banner-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.mobile_banner_height }}px;
+      border-radius: {{ block.settings.mobile_border_radius }}px;
+    }
+
+    .ai-compact-banner-{{ ai_gen_id }} .ai-banner-image-wrapper-{{ ai_gen_id }} {
+      border-radius: {{ block.settings.mobile_border_radius }}px;
+    }
+  }
+{% endstyle %}<div class="ai-compact-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-banner-image-wrapper-{{ ai_gen_id }}">
+    {% if block.settings.banner_image %}
+      <img
+        src="{{ block.settings.banner_image | image_url: width:1200 }}"
+        alt="{{ block.settings.banner_image.alt | escape }}"
+        loading="lazy"
+        width="{{ block.settings.banner_image.width }}"
+        height="{{ block.settings.banner_image.height }}">
+    {% else %}
+      <div class="ai-banner-placeholder-{{ ai_gen_id }}">
+        {{ 'hero-apparel-1' | placeholder_svg_tag }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Compact rounded banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image"
+    },
+    {
+      "type": "header",
+      "content": "Size and spacing"
+    },
+    {
+      "type": "range",
+      "id": "banner_width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Banner width",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "top_spacing",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Border radius"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Corner roundness",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Mobile settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_banner_width",
+      "min": 80,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Mobile width",
+      "default": 95
+    },
+    {
+      "type": "range",
+      "id": "mobile_banner_height",
+      "min": 120,
+      "max": 300,
+      "step": 20,
+      "unit": "px",
+      "label": "Mobile height",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "mobile_top_spacing",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile top spacing",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_bottom_spacing",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile bottom spacing",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile corner roundness",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Compact rounded banner"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}
